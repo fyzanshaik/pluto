@@ -27,3 +27,5 @@ Written in Python3!
    -  Join all `HTMLNode` blocks under one large parent HTMLNode for the pages.
    -  Use a recursive `to_htlm()` method to convert the HTLMNode and all its nested node in a giant string to inject in a template as body
    -  Write the full HTML string to a file for that page in the `/public` directory.
+
+![1754335149146](image/README/1754335149146.png)
