@@ -100,10 +100,25 @@ def generate_page(from_path,template_path,dest_path):
     
 
 
+def generate_pages_recursive(dir_path_content,template_path,dest_dir_path):
+    for entry in os.listdir(dir_path_content):
+        entry_path = os.path.join(dir_path_content,entry)
+        dest_entry_path = os.path.join(dest_dir_path,entry)
+        
+        if os.path.isdir(entry_path):
+            if not os.path.exists(dest_entry_path):
+                os.makedirs(dest_entry_path)
+            generate_pages_recursive(entry_path, template_path, dest_entry_path)
+        elif os.path.isfile(entry_path) and entry_path.endswith(".md"):
+            dest_file = os.path.splitext(entry)[0] + ".html"
+            dest_file_path = os.path.join(dest_dir_path, dest_file)
+            print(f"Generating page from {entry_path} to {dest_file_path} using {template_path}")
+            generate_page(entry_path, template_path, dest_file_path)
+
 def main():
     print("Directory syncing(deletion & copying): ")
     syncDirectories("static","public")
-    generate_page("content/index.md","template.html","public/index.html")
-
+    # generate_page("content/index.md","template.html","public/index.html")
+    generate_pages_recursive("content","template.html","public")
 if __name__ == "__main__":
     main()
