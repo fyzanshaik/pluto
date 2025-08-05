@@ -3,15 +3,23 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Tolkien Fan Club</title>
+		<title>Hey, I'm Faizan!</title>
 		<link href="/pluto/index.css" rel="stylesheet" />
 	</head>
 
 	<body>
-		<li>It can be enjoyed by children and adults alike</li>
-		<article><div><h1>Tolkien Fan Club</h1><p><img src="./images/tolkien.png" alt="JRR Tolkien sitting"></img></p><p>Here's the deal, <b>I like Tolkien</b>.</p><blockquote>"I am in fact a Hobbit in all but size."  -- J.R.R. Tolkien</blockquote><h2>Blog posts</h2><ul><li> <a href="/pluto/blog/glorfindel">Why Glorfindel is More Impressive than Legolas</a></li><li> <a href="/pluto/blog/tom">Why Tom Bombadil Was a Mistake</a></li><li> <a href="/pluto/blog/majesty">The Unparalleled Majesty of "The Lord of the Rings"</a></li></ul><h2>Reasons I like Tolkien</h2><ul><li> You can spend years studying the legendarium and still not understand its depths</li><li> It can be enjoyed by children and adults alike</li><li> Disney <i>didn't ruin it</i> (okay, but Amazon might have)</li><li> It created an entirely new genre of fantasy</li></ul><h2>My favorite characters (in order)</h2><ol><li>Gandalf</li><li>Bilbo</li><li>Sam</li><li>Glorfindel</li><li>Galadriel</li><li>Elrond</li><li>Thorin</li><li>Sauron</li><li>Aragorn</li></ol><p>Here's what <code>elflang</code> looks like (the perfect coding language):</p><pre><code><code>func main(){
-    fmt.Println("Aiya, Ambar!")
-}
-</code></code></pre><p>Want to get in touch? <a href="/pluto/contact">Contact me here</a>.</p><p>This site was generated with a custom-built <a href="https://www.boot.dev/courses/build-static-site-generator-python">static site generator</a> from the course on <a href="https://www.boot.dev">Boot.dev</a>.</p></div></article>
+		<article><div><h1>Hey, I'm Faizan!</h1><p>Welcome to my weird little static site.  
+This whole thing is built with my own Python SSG (static site generator).  
+You’re looking at a page that was generated from markdown, using my own code.  
+Check out my <a href="https://github.com/fyzanshaik">GitHub</a> if you want to see more of my stuff.</p><p>---</p><p>So what is this?  
+Basically, I wrote a Python script that takes markdown files (like this one),  
+turns them into HTML using a bunch of classes (nodes and stuff),  
+and spits out a website.  
+It copies over images and CSS too, so it looks half-decent.</p><p>---</p><p>How do you build it?  
+Just run my <code>main.sh</code> or <code>build.sh</code> scripts.  
+They clean up the old build, run the generator, and copy everything to the right place.  
+Then you can serve it with Python or push it to GitHub Pages.</p><p>---</p><p>What did I learn?</p><ul><li> How to walk through folders and files in Python</li><li> How to use OOP to make a tree of nodes (like HTMLNode, ParentNode, LeafNode)</li><li> How to turn markdown into nodes, and then into HTML</li><li> How to deal with all the annoying little details (paths, links, images, etc)</li><li> That static site generators are actually pretty fun to make</li></ul><p>---</p><p>What are the limitations?</p><ul><li> No fancy code blocks (so no triple backticks, sorry)</li><li> Only basic markdown: headings, paragraphs, bold, italic, inline code, links, images, lists</li><li> No tables, no HTML passthrough, no nested lists, no escaping</li><li> If you mess up your markdown, it might just crash</li><li> The code is messy, but hey, it works</li></ul><p>---</p><p>Here's a picture of the architecture (fancy, right?):</p><p><img src="./images/1754138103189.png" alt="SSG Architecture Overview"></img></p><p>And here's how markdown gets turned into nodes and then into HTML:</p><p><img src="./images/1754335149146.png" alt="Markdown to Node Conversion"></img></p><p>---</p><p>Anyway, thanks for stopping by.  
+If you want to make your own, fork my repo and go wild.  
+It's all on <a href="https://github.com/fyzanshaik/pluto">GitHub</a>.</p><p>---</p><p>See ya!</p></div></article>
 	</body>
 </html>
