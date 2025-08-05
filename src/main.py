@@ -2,7 +2,7 @@ import os
 import shutil
 from textnode import TextNode,TextType
 from util import markdown_to_html_node
-
+import sys
 """_summary_
 This is a recursive function to copy everything from static folder to public folder, and also to delete stuff
 """
@@ -60,7 +60,7 @@ def extract_title(markdown):
     return expectedTitleLine.split('#')[1].strip()
 
 
-def generate_page(from_path,template_path,dest_path):
+def generate_page(from_path,template_path,dest_path,basepath):
     from_path_abs = os.path.abspath(from_path)
     template_path_abs = os.path.abspath(template_path)
     dest_path_abs = os.path.abspath(dest_path)
@@ -91,6 +91,11 @@ def generate_page(from_path,template_path,dest_path):
     template_html = template_html.replace(title_placeholder, title)
     template_html = template_html.replace(content_placeholder, html_content)
     
+    #For github pages configuration
+    template_html = template_html.replace('href="/', f'href="{basepath}')
+    template_html = template_html.replace('src="/', f'src="{basepath}')
+    
+    
     print(f"Template HTML after replacing(100 chars): {template_html[:101]}")
     
     print(f"Writing file with path {dest_path_abs}")
@@ -100,7 +105,7 @@ def generate_page(from_path,template_path,dest_path):
     
 
 
-def generate_pages_recursive(dir_path_content,template_path,dest_dir_path):
+def generate_pages_recursive(dir_path_content,template_path,dest_dir_path,basepath):
     for entry in os.listdir(dir_path_content):
         entry_path = os.path.join(dir_path_content,entry)
         dest_entry_path = os.path.join(dest_dir_path,entry)
@@ -108,17 +113,22 @@ def generate_pages_recursive(dir_path_content,template_path,dest_dir_path):
         if os.path.isdir(entry_path):
             if not os.path.exists(dest_entry_path):
                 os.makedirs(dest_entry_path)
-            generate_pages_recursive(entry_path, template_path, dest_entry_path)
+            generate_pages_recursive(entry_path, template_path, dest_entry_path,basepath)
         elif os.path.isfile(entry_path) and entry_path.endswith(".md"):
             dest_file = os.path.splitext(entry)[0] + ".html"
             dest_file_path = os.path.join(dest_dir_path, dest_file)
             print(f"Generating page from {entry_path} to {dest_file_path} using {template_path}")
-            generate_page(entry_path, template_path, dest_file_path)
+            generate_page(entry_path, template_path, dest_file_path,basepath)
 
 def main():
+    
+    basepath = "/"
+    if len(sys.argv) > 1:
+        basepath = sys.argv[1]
+    
     print("Directory syncing(deletion & copying): ")
-    syncDirectories("static","public")
+    syncDirectories("static","docs")
     # generate_page("content/index.md","template.html","public/index.html")
-    generate_pages_recursive("content","template.html","public")
+    generate_pages_recursive("content","template.html","docs",basepath)
 if __name__ == "__main__":
     main()
