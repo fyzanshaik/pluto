@@ -1,6 +1,8 @@
 import re
 from textnode import TextNode, TextType,text_node_to_html_node
 from enum import Enum
+from htmlnode import HTMLNode
+from parentnode import ParentNode
 
 class BlockType(Enum):
     PARAGRAPH = "paragraph"
@@ -211,13 +213,15 @@ def text_to_children(text):
         children.append(html_node)
     return children
 
+
+
 def block_to_html_node(block, block_type):
     """
     Converts a markdown block and its type to an HTMLNode.
     """
     if block_type == BlockType.PARAGRAPH:
         children = text_to_children(block)
-        return HTMLNode("p", children=children)
+        return ParentNode("p", children)
     elif block_type == BlockType.HEADING:
         i = 0
         while i < len(block) and block[i] == "#":
@@ -227,15 +231,14 @@ def block_to_html_node(block, block_type):
         if text.startswith(" "):
             text = text[1:]
         children = text_to_children(text)
-        return HTMLNode("h" + str(level), children=children)
+        return ParentNode("h" + str(level), children)
     elif block_type == BlockType.CODE:
-        code = block.strip("`")
-        code = code.strip()
+        code = block.strip("`").strip()
         code_node = text_node_to_html_node(TextNode(code + "\n", TextType.CODE))
         code_children = [code_node]
-        code_html_node = HTMLNode("code", children=code_children)
+        code_html_node = ParentNode("code", code_children)
         pre_children = [code_html_node]
-        return HTMLNode("pre", children=pre_children)
+        return ParentNode("pre", pre_children)
     elif block_type == BlockType.QUOTE:
         lines = block.split("\n")
         quote_text = ""
@@ -248,7 +251,7 @@ def block_to_html_node(block, block_type):
                 quote_text += " "
             quote_text += line
         children = text_to_children(quote_text)
-        return HTMLNode("blockquote", children=children)
+        return ParentNode("blockquote", children)
     elif block_type == BlockType.UNORDERED_LIST:
         lines = block.split("\n")
         li_nodes = []
@@ -256,9 +259,9 @@ def block_to_html_node(block, block_type):
             if line.startswith("- "):
                 item = line[2:]
                 children = text_to_children(item)
-                li_node = HTMLNode("li", children=children)
+                li_node = ParentNode("li", children)
                 li_nodes.append(li_node)
-        return HTMLNode("ul", children=li_nodes)
+        return ParentNode("ul", li_nodes)
     elif block_type == BlockType.ORDERED_LIST:
         lines = block.split("\n")
         li_nodes = []
@@ -267,9 +270,9 @@ def block_to_html_node(block, block_type):
             if dot_index != -1:
                 item = line[dot_index+2:]
                 children = text_to_children(item)
-                li_node = HTMLNode("li", children=children)
+                li_node = ParentNode("li", children)
                 li_nodes.append(li_node)
-        return HTMLNode("ol", children=li_nodes)
+        return ParentNode("ol", li_nodes)
     else:
         raise Exception("Unknown block type: " + str(block_type))
 
@@ -283,7 +286,7 @@ def markdown_to_html_node(markdown):
         block_type = block_to_block_type(block)
         html_node = block_to_html_node(block, block_type)
         children.append(html_node)
-    parent = HTMLNode("div", children=children)
+    parent = ParentNode("div", children=children)
     return parent
 
 def main():

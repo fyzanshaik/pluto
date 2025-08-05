@@ -15,8 +15,9 @@ class HTMLNode():
         raise NotImplementedError()
 
     def props_to_html(self):
-        props = self.props
-        return f' href="{props.href}" anchor="{props.target}"'
+        if not self.props:
+            return ""
+        return " " + " ".join(f'{key}="{value}"' for key, value in self.props.items())
     
     def __eq__(self, value):
         if(self.tag == value.tag and self.value == value.value):
