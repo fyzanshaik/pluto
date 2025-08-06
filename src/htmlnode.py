@@ -11,6 +11,7 @@ class HTMLNode():
         self.children = children
         self.props = props
     
+    #This method will get overridden by inherited classes as it depends on what type of attributes we need to obtain from
     def to_html(self):
         raise NotImplementedError()
 

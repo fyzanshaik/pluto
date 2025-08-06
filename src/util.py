@@ -195,12 +195,6 @@ def block_to_block_type(block):
 
     return BlockType.PARAGRAPH
 
-from htmlnode import HTMLNode
-from leafnode import LeafNode
-from textnode import TextNode, TextType
-from enum import Enum
-
-
 def text_to_children(text):
     """
     Converts a string of markdown text to a list of HTMLNode children,
@@ -288,6 +282,8 @@ def markdown_to_html_node(markdown):
         children.append(html_node)
     parent = ParentNode("div", children=children)
     return parent
+
+
 
 def main():
     text = (

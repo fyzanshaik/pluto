@@ -1,6 +1,5 @@
 import os
 import shutil
-from textnode import TextNode,TextType
 from util import markdown_to_html_node
 import sys
 """_summary_
